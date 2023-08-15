@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WarpWallpapers"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5217228893252396~1437938931"/>
         <activity
             android:name=".Orignal_image_screen"
             android:exported="false" />
