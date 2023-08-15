@@ -80,55 +80,11 @@ public class Orignal_image_screen extends AppCompatActivity {
 
         adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this, getString(R.string.Inter_ad_unit_id), adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                Log.d("ad_fail" , loadAdError.toString());
-            }
+        adshow(adRequest);
 
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                super.onAdLoaded(interstitialAd);
-                minterstitialAd = interstitialAd;
-
-                minterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        super.onAdDismissedFullScreenContent();
-                        minterstitialAd = null;
-                    }
-
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                        super.onAdFailedToShowFullScreenContent(adError);
-                    }
-
-                    @Override
-                    public void onAdImpression() {
-                        super.onAdImpression();
-                    }
-
-                    @Override
-                    public void onAdShowedFullScreenContent() {
-                        super.onAdShowedFullScreenContent();
-                    }
-                });
-            }
-        });
+        adTimeHandler();
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (minterstitialAd != null){
-                    minterstitialAd.show(Orignal_image_screen.this);
-                }
-                else {
-                    Log.d("adpending.." , "pending....");
-                }
-            }
-        }, 10000);
 
         Intent intent = new Intent(getApplicationContext() , MainActivity.class);
         Intent i = getIntent();
@@ -142,7 +98,10 @@ public class Orignal_image_screen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(intent);
+                adshow(adRequest);
+                adTimeHandler();
             }
+
         });
 
        // Putting img in imnageview...
@@ -185,6 +144,59 @@ public class Orignal_image_screen extends AppCompatActivity {
 
 
     }
+
+    private void adTimeHandler() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (minterstitialAd != null){
+                    minterstitialAd.show(Orignal_image_screen.this);
+                }
+                else {
+                    Log.d("adpending.." , "pending....");
+                }
+            }
+        }, 5000);
+
+    }
+
+    private void adshow(AdRequest adRequest) {
+
+        InterstitialAd.load(this, getString(R.string.Inter_ad_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                Log.d("ad_fail" , loadAdError.toString());
+            }
+
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                super.onAdLoaded(interstitialAd);
+                minterstitialAd = interstitialAd;
+
+                minterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        super.onAdDismissedFullScreenContent();
+                        minterstitialAd = null;
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        super.onAdFailedToShowFullScreenContent(adError);
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+                        super.onAdImpression();
+                    }
+
+                });
+            }
+        });
+
+    }
+
     private void showDiloag(){
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -197,14 +209,6 @@ public class Orignal_image_screen extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
             @Override
             public void onClick(View v) {
-
-//                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_MEDIA_IMAGES)
-//                        != PackageManager.PERMISSION_GRANTED ||
-//                        ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_MEDIA_AUDIO)
-//                                != PackageManager.PERMISSION_GRANTED) {
-//
-//                   ActivityCompat.requestPermissions(Orignal_image_screen.this, permissions , 0);
-//                }
                     bitmapDrawable=(BitmapDrawable) img.getDrawable();
                     bitmap=bitmapDrawable.getBitmap();
 
