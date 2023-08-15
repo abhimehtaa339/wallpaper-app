@@ -1,5 +1,6 @@
 package com.example.warpwallpapers;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +23,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
@@ -36,6 +38,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Request;
 
@@ -46,6 +54,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Permission;
 import java.security.Permissions;
+import java.security.PrivateKey;
 
 import javax.security.auth.callback.PasswordCallback;
 
@@ -58,13 +67,68 @@ public class Orignal_image_screen extends AppCompatActivity {
 
    public Bitmap bitmap;
    public BitmapDrawable bitmapDrawable;
+   private String global_url;
 
-   public String global_url;
+   private AdRequest adRequest ;
+
+   private InterstitialAd minterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orignal_image_screen);
+
+        adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, getString(R.string.Inter_ad_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                Log.d("ad_fail" , loadAdError.toString());
+            }
+
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                super.onAdLoaded(interstitialAd);
+                minterstitialAd = interstitialAd;
+
+                minterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        super.onAdDismissedFullScreenContent();
+                        minterstitialAd = null;
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        super.onAdFailedToShowFullScreenContent(adError);
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+                        super.onAdImpression();
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        super.onAdShowedFullScreenContent();
+                    }
+                });
+            }
+        });
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (minterstitialAd != null){
+                    minterstitialAd.show(Orignal_image_screen.this);
+                }
+                else {
+                    Log.d("adpending.." , "pending....");
+                }
+            }
+        }, 10000);
 
         Intent intent = new Intent(getApplicationContext() , MainActivity.class);
         Intent i = getIntent();

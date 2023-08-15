@@ -2,4 +2,6 @@
     <string name="app_name">Warp wallpapers</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Banner_ad_unit_id">ca-app-pub-5217228893252396/5002629480</string>
+    <string name="Inter_ad_unit_id">ca-app-pub-5217228893252396/6886023965</string>
 </resources>
