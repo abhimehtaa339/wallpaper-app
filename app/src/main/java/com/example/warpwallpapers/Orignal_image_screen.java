@@ -205,7 +205,7 @@ public class Orignal_image_screen extends AppCompatActivity {
         LinearLayout downloadLayout = dialog.findViewById(R.id.download_btn);
         LinearLayout shareLayout = dialog.findViewById(R.id.share_btn);
 
-        downloadLayout.setOnClickListener(new View.OnClickListener() {
+        downloadLayout.setOnClickListener(new View.OnClickListener()  {
             @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
             @Override
             public void onClick(View v) {
