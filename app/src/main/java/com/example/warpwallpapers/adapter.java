@@ -44,15 +44,15 @@ public class adapter extends RecyclerView.Adapter<adapter.viewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             /*   Intent intent = null;
+                Intent intent = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                     intent = new Intent(context, Orignal_image_screen.class);
                 }
                 intent.putExtra("orignal_url" , url);
                 intent.putExtra("initial" , photographer);
                 intent.putExtra("id" , Photgraperid);
-                context.startActivity(intent);*/
-                onclick.onClick(position);
+                context.startActivity(intent);
+//                onclick.onClick(position);
             }
         });
 
