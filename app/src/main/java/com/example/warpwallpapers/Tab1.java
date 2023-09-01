@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tab1 extends Fragment implements adapter.Onclick {
+public class Tab1 extends Fragment {
 
     private RecyclerView tab1;
     private adapter adapt;
@@ -46,7 +46,7 @@ public class Tab1 extends Fragment implements adapter.Onclick {
         loading = view.findViewById(R.id.loading);
         tab1 = view.findViewById(R.id.firstfragmet);
         list = new ArrayList<>();
-        adapt = new adapter(getContext() , list,this);
+        adapt = new adapter(getContext() , list);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4);
         tab1.setLayoutManager(gridLayoutManager);
         tab1.setAdapter(adapt);
@@ -103,11 +103,5 @@ public class Tab1 extends Fragment implements adapter.Onclick {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
 
-    }
-
-
-    @Override
-    public void onClick(Integer position) {
-        Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
     }
 }

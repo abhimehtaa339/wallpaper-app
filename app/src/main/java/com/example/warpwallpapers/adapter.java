@@ -20,11 +20,11 @@ import java.util.ArrayList;
 public class adapter extends RecyclerView.Adapter<adapter.viewHolder> {
     private Context context;
     private ArrayList<modal> arr;
-    private Onclick onclick;
-    public adapter(Context context, ArrayList<modal> arr,Onclick onclick) {
+//    private Onclick onclick;
+    public adapter(Context context, ArrayList<modal> arr) {
         this.context = context;
         this.arr = arr;
-        this.onclick = onclick;
+//        this.onclick = onclick;
     }
 
     @NonNull
@@ -72,7 +72,7 @@ public class adapter extends RecyclerView.Adapter<adapter.viewHolder> {
             medium = itemView.findViewById(R.id.image_view);
         }
     }
- public interface Onclick{
-        public void onClick(Integer position);
- }
+// public interface Onclick{
+//        public void onClick(Integer position);
+// }
 }

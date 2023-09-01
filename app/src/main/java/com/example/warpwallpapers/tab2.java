@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class tab2 extends Fragment implements adapter.Onclick {
+public class tab2 extends Fragment  {
     private RecyclerView tab1;
     private adapter adapt;
     private ArrayList<modal>list;
@@ -43,7 +43,7 @@ public class tab2 extends Fragment implements adapter.Onclick {
         loading = view.findViewById(R.id.loading);
         tab1 = view.findViewById(R.id.firstfragmet);
         list = new ArrayList<>();
-        adapt = new adapter(getContext() , list,this);
+        adapt = new adapter(getContext() , list);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4);
         tab1.setLayoutManager(gridLayoutManager);
         tab1.setAdapter(adapt);
@@ -105,8 +105,8 @@ public class tab2 extends Fragment implements adapter.Onclick {
 
     }
 
-    @Override
-    public void onClick(Integer position) {
-
-    }
+//    @Override
+//    public void onClick(Integer position) {
+//        Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
+//    }
 }
